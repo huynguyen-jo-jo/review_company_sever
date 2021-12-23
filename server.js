@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import posts from "./routers/post.router.js";
 import blogs from "./routers/blog.router.js";
+import users from "./routers/user.router.js";
 import mongoose from "mongoose";
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(cors());
 
 app.use("/posts", posts);
 app.use("/blogs", blogs);
+app.use("/users", users);
 
 mongoose
   .connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -28,3 +30,14 @@ mongoose
   .catch((err) => {
     console.log("err", err);
   });
+
+  /* CROS middleware */
+app.use(function(req, res, next) {
+  // Mọi domain
+  // res.header("Access-Control-Allow-Origin", "*");
+  // Domain nhất định
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+ 
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});

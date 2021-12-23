@@ -3,7 +3,7 @@ import { PostModel } from "../models/post.model.js";
 export const getPosts = async (req, res) => {
   try {
     const posts = await PostModel.find();
-    console.log("posts", posts);
+    // console.log("posts", posts);
     res.status(200).json(posts);
   } catch (err) {
     res.status(500).json({ error: err });
